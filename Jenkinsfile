@@ -4,29 +4,12 @@ final def pipelineSdkVersion = 'master'
 
 pipeline {
     agent {
-    kubernetes {
-      label 'jenkinsslave'
-      defaultContainer 'jnlp'
-      yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-labels:
-  component: ci
-spec:
-  # Use service account that can deploy to all namespaces
-  serviceAccountName: cd-jenkins
-  containers:
-  - name: gcloud
-    image: "docker.io/dockerkyma/java-address-book-example:v10"
-  - name: kubectl
-    image: gcr.io/cloud-builders/kubectl
-    command:
-    - cat
-    tty: true
-"""
-}
-  }	
+      kubernetes {
+        label 'jenkinsslave'
+        defaultContainer 'jnlp'
+      }
+    }
+  
     options {
         timeout(time: 120, unit: 'MINUTES')
         timestamps()
@@ -42,20 +25,15 @@ spec:
             }
         }
         
-         stage('Deploy Canary') {
-      // Canary branch
-      when { branch 'google-next' }
-      steps {
-        container('kubectl') {
-          // Change deployed image in canary to the one we just built
-          sh("sed -i.bak 'docker.io/dockerkyma/java-address-book-example:v10' ./k8s/canary/*.yaml")
-          sh("kubectl --namespace=production apply -f k8s/services/")
-          sh("kubectl --namespace=production apply -f k8s/canary/")
-          sh("echo http://`kubectl --namespace=production get service/${feSvcName} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${feSvcName}")
-        } 
-      }
-    }
-        
+        stage('Build') {
+            parallel {
+                stage("Backend") { steps { stageBuildBackend script: this } }
+                stage("Frontend") {
+                    when { expression { commonPipelineEnvironment.configuration.skipping.FRONT_END_BUILD } }
+                    steps { stageBuildFrontend script: this }
+                }
+            }
+        }        
     }
     post {
         success{
