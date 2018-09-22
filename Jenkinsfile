@@ -29,7 +29,7 @@ spec:
     tty: true
 """
 }
-    
+    }
     
      tools {
         maven 'M3'
