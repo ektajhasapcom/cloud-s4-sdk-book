@@ -23,8 +23,7 @@ pipeline {
             parallel {
                 stage("Backend") { 
                     steps { 
-                        library "s4sdk-pipeline-library@${pipelineSdkVersion}"
-                        stageBuildBackend script: this 
+                        stageBuild script: this 
                     }
                 }
                 stage("Frontend") {
