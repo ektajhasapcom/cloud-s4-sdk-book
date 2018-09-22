@@ -3,7 +3,10 @@
 final def pipelineSdkVersion = 'master'
 
 pipeline {
-    agent any	
+    agent any
+     tools {
+        maven 'M3'
+    }
     options {
         timeout(time: 120, unit: 'MINUTES')
         timestamps()
@@ -18,7 +21,14 @@ pipeline {
                 abortOldBuilds script: this
             }
         }
+        stage('Build') {
+            steps {
+                sh 'mvn package'
+            }
+        }
     }
+    
+    
     post {
         success{
             echo "Thats how simple it is to use CI/CD with SAP S/4HANA Cloud SDK."
