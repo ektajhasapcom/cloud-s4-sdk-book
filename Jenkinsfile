@@ -3,8 +3,7 @@
 final def pipelineSdkVersion = 'master'
 
 pipeline {
-    agent any
-  
+    agent any	
     options {
         timeout(time: 120, unit: 'MINUTES')
         timestamps()
@@ -19,16 +18,21 @@ pipeline {
                 abortOldBuilds script: this
             }
         }
-        
+
         stage('Build') {
             parallel {
-                stage("Backend") { steps { stageBuildBackend script: this } }
+                stage("Backend") { 
+                    steps { 
+                        library "s4sdk-pipeline-library@${pipelineSdkVersion}"
+                        stageBuildBackend script: this 
+                    }
+                }
                 stage("Frontend") {
                     when { expression { commonPipelineEnvironment.configuration.skipping.FRONT_END_BUILD } }
                     steps { stageBuildFrontend script: this }
                 }
             }
-        }        
+        }
     }
     post {
         success{
