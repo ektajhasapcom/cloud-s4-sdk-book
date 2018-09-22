@@ -5,7 +5,7 @@ final def pipelineSdkVersion = 'master'
 pipeline {
     agent {
     kubernetes {
-      label 'google-next'
+      label 'jnlp'
       defaultContainer 'jnlp'
       yaml """
 apiVersion: v1
