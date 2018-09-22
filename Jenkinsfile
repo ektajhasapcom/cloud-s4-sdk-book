@@ -23,9 +23,10 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn package'
+                stageBuild script: this
             }
         }
+
     }
     
     
