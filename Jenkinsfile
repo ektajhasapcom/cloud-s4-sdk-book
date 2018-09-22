@@ -5,7 +5,7 @@ final def pipelineSdkVersion = 'master'
 pipeline {
     agent {
     kubernetes {
-      label 'jnlp'
+      label 'jenkins-jenkins-slave '
       defaultContainer 'jnlp'
       yaml """
 apiVersion: v1
