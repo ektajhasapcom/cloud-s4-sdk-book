@@ -2,6 +2,22 @@
 
 final def pipelineSdkVersion = 'master'
 
+pipeline {
+    agent any
+    
+     tools {
+        maven 'M3'
+    }
+    
+    options {
+        timeout(time: 120, unit: 'MINUTES')
+        timestamps()
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        skipDefaultCheckout()
+    }
+    stages {
+        
+        
     podTemplate(label: 'jenkins-pipeline', containers: [
     containerTemplate(name: 'docker', image: 'docker:1.12.6', command: 'cat', ttyEnabled: true),
     containerTemplate(name: 'golang', image: 'golang:1.8.3', command: 'cat', ttyEnabled: true),
@@ -11,20 +27,7 @@ final def pipelineSdkVersion = 'master'
 volumes:[
     hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
 ])
-{
-pipeline {
-    agent any
-    
-     tools {
-        maven 'M3'
-    }
-    options {
-        timeout(time: 120, unit: 'MINUTES')
-        timestamps()
-        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
-        skipDefaultCheckout()
-    }
-    stages {
+        
         stage('Init') {
             steps {
                 library "s4sdk-pipeline-library@${pipelineSdkVersion}"
@@ -60,5 +63,4 @@ pipeline {
         }
         failure { deleteDir() }
     }
-}
 }
