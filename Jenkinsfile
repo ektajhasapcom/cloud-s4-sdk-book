@@ -3,12 +3,7 @@
 final def pipelineSdkVersion = 'master'
 
 pipeline {
-    agent {
-      kubernetes {
-        label 'jenkinsslave'
-        defaultContainer 'jnlp'
-      }
-    }
+    agent any
   
     options {
         timeout(time: 120, unit: 'MINUTES')
