@@ -18,12 +18,6 @@ pipeline {
                 abortOldBuilds script: this
             }
         }
-
-        stage('Build') {
-            steps {
-                stageBuild script: this
-            }
-        }
     }
     post {
         success{
