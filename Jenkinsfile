@@ -48,11 +48,7 @@ spec:
                 abortOldBuilds script: this
             }
         }
-        stage('Build') {
-            steps {
-                stageBuild script: this
-            }
-        }
+    
         
         stage('Docker Push') {
             steps {
