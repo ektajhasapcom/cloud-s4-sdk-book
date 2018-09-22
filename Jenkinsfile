@@ -3,33 +3,7 @@
 final def pipelineSdkVersion = 'master'
 
 pipeline {
-    agent {
-    kubernetes {
-      label 'jenkinsslave'
-      defaultContainer 'jnlp'
-      yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-labels:
-  component: ci
-spec:
-  # Use service account that can deploy to all namespaces
-  serviceAccountName: default
-  containers:
-  - name: docker
-    image: docker:edge
-    command:
-    - cat
-    tty: true
-  - name: kubectl
-    image: lachlanevenson/k8s-kubectl
-    command:
-    - cat
-    tty: true
-"""
-}
-    }
+    agent any
     
      tools {
         maven 'M3'
