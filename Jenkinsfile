@@ -10,20 +10,17 @@ pipeline {
 
   stages {
     
-   stage('Build') {
-      steps {
+      stage('Build') {
+        steps {
           sh "mvn clean install -DskipTests"
-      }
-    }
-    
-
-
-    stage('Build and push image with Container Builder') {
-      steps {
-        container('docker') {
-          sh "docker build -t java-image:v1 ."
         }
       }
-    }
-  }
+      stage('Build and push image with Container Builder') {
+        steps {
+           container('docker') {
+              sh "docker build -t java-image:v1 ."
+           }
+         }
+      }
+   }
 }
