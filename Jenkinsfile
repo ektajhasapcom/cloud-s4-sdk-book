@@ -7,11 +7,7 @@ pipeline {
 
   stages {
     
-    stage('Init') {
-            steps {
-               
-            }
-     }
+
 
     stage('Build and push image with Container Builder') {
       steps {
