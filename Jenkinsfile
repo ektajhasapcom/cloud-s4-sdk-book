@@ -3,7 +3,30 @@
 final def pipelineSdkVersion = 'master'
 
 pipeline {
-    agent any
+   agent {
+    kubernetes {
+      label 'jenkinsslave'
+      defaultContainer 'jnlp'
+      yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+labels:
+  component: ci
+spec:
+  # Use service account that can deploy to all namespaces
+  serviceAccountName: cd-jenkins
+  containers:
+  - name: docker
+    image: "docker.io/docker:dind"
+  - name: kubectl
+    image: gcr.io/cloud-builders/kubectl
+    command:
+    - cat
+    tty: true
+"""
+}
+   }
     options {
         timeout(time: 120, unit: 'MINUTES')
         timestamps()
