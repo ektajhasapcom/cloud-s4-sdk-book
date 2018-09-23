@@ -1,4 +1,4 @@
-
+def  imageTag = "docker.io/ektajha/addressbooklatest:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 
 
 pipeline {
