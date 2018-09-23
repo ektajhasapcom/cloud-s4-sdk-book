@@ -8,19 +8,27 @@ pipeline {
         maven 'M3'
   }
 
-  stages {
-    parallel {
-      stage ('Init') {
-        steps {
-            checkout scm
-            container('docker') {
-                  sh "docker login --username ektajha --password Mapapaji@99"
-                  sh "docker pull docker.io/ektajha/mockserver:v10"
-                  sh "docker run -p 3000:3000 ektajha/mockserver:v10"
-                  sh 'exit 123'
+  stages {    
+       stage('Init') {
+            parallel {
+                stage("Checkout") {
+                   steps {
+                       checkout scm
+                   }
+                }
+                stage("Mockserver") {
+                  steps {
+                    container('docker') {
+                          sh "docker login --username ektajha --password Mapapaji@99"
+                          sh "docker pull docker.io/ektajha/mockserver:v10"
+                          sh "docker run -p 3000:3000 ektajha/mockserver:v10"
+                          sh 'exit 123'
+                     }
+                  }
+                }
             }
         }
-      }
+
     
       stage('Build') {
         steps {
@@ -34,6 +42,5 @@ pipeline {
            }
          }
        }
-     }
    }
 }
