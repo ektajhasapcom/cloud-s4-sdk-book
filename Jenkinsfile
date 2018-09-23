@@ -9,6 +9,18 @@ pipeline {
   }
 
   stages {    
+    
+       stage('Deploy') {
+        steps {
+           container('kubectl') {
+              sh withKubeConfig([credentialsId: 'kubeconfig'
+                    ]) {
+                        sh 'kubectl get pods'
+                   }
+           }
+         }
+       }
+    
        stage('Init') {
           steps {
             checkout scm
@@ -29,15 +41,6 @@ pipeline {
               sh "docker build -t java-image:v1 ."
               sh "docker tag java-image:v1 ektajha/java-image:v1"
               sh "docker push ektajha/java-image:v1"
-           }
-         }
-       }
-    
-       stage('Deploy') {
-        steps {
-           container('kubectl') {
-              sh "kubectl config set-context \$(kubectl config current-context) --namespace=default"
-              sh "kubectl get pods"
            }
          }
        }
