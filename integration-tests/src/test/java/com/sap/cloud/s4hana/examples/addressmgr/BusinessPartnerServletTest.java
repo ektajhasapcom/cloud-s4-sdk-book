@@ -1,4 +1,4 @@
-/*package com.sap.cloud.s4hana.examples.addressmgr;
+package com.sap.cloud.s4hana.examples.addressmgr;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -21,7 +21,7 @@ import static org.hamcrest.Matchers.*;
 @RunWith( Arquillian.class )
 public class BusinessPartnerServletTest
 {
-    private static final MockUtil mockUtil = new MockUtil();
+    /*private static final MockUtil mockUtil = new MockUtil();
     public static final String BUPA_ID = "1003764";
 
     @ArquillianResource
@@ -68,5 +68,6 @@ public class BusinessPartnerServletTest
                 .body("BusinessPartner", allOf(not(isEmptyOrNullString()),equalTo(BUPA_ID)))
                 .body("to_BusinessPartnerAddress", hasSize(greaterThan(0)));
     }
+    */
 }
-*/
+
