@@ -44,6 +44,7 @@ pipeline {
       stage('Deploy') {
         steps {
              container('kubectl') {
+                sh "helm init";
                 sh "helm install --name addressbook   --set imageversion=$tag addressbook"
              }
           }
