@@ -86,7 +86,7 @@ public class AddressServletTest
      * @param houseNumber Value to set for property HouseNumber
      * @return Value of property AddressID of newly created instance
      */
-    private String createAddress(final String houseNumber) {
+ /*   private String createAddress(final String houseNumber) {
         return given()
                 .body(CREATE_BODY_TEMPLATE
                         .replace("{bupaId}", BUPA_ID)
