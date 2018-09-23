@@ -23,14 +23,4 @@ pipeline {
         }
 
     }
-    post {
-        always {
-            script {
-                if (commonPipelineEnvironment.configuration.skipping?.SEND_NOTIFICATION) {
-                    postActionSendNotification script: this
-                }
-            }
-        }
-        failure { deleteDir() }
-    }
 }
