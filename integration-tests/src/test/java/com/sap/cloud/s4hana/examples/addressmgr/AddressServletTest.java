@@ -1,6 +1,6 @@
 package com.sap.cloud.s4hana.examples.addressmgr;
 
-import io.restassured.RestAssured;
+/*import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import com.sap.cloud.sdk.cloudplatform.connectivity.ProxyConfiguration;
 import com.sap.cloud.sdk.odatav2.connectivity.ODataException;
@@ -22,7 +22,7 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static com.sap.cloud.s4hana.examples.addressmgr.BusinessPartnerServletTest.BUPA_ID;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.*;*/
 
 @RunWith( Arquillian.class )
 public class AddressServletTest
