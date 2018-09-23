@@ -1,4 +1,4 @@
-package com.sap.cloud.s4hana.examples.addressmgr;
+/*package com.sap.cloud.s4hana.examples.addressmgr;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -142,3 +142,4 @@ public class AddressServletTest
         return new GetAddressCommand(bupaId, addressId).execute();
     }
 }
+*/
