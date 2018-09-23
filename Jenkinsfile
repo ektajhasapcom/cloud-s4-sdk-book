@@ -9,7 +9,7 @@ pipeline {
   }
 
   stages {
-    
+    parallel {
       stage ('Init') {
         steps {
             checkout scm
@@ -33,6 +33,7 @@ pipeline {
               sh "docker build -t java-image:v1 ."
            }
          }
-      }
+       }
+     }
    }
 }
