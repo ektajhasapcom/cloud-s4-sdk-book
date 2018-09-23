@@ -44,7 +44,7 @@ pipeline {
       stage('Deploy') {
         steps {
              container('kubectl') {
-                helm install --name addressbook  addressbook --set imagetag=$tag
+                helm install --name addressbook   --set imageversion=$tag addressbook
              }
           }
        }
