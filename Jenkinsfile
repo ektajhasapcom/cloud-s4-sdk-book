@@ -34,8 +34,8 @@ pipeline {
         steps {
            container('docker') {
               sh "docker login --username ektajha --password Mapapaji@99"
-              sh "docker build -t "ektajha/addressbooklatest:${imageTag}" ."
-              sh "docker push "ektajha/addressbooklatest:${imageTag}" "
+              sh "docker build -t "ektajha/addressbooklatest:\${imageTag}" ."
+              sh "docker push "ektajha/addressbooklatest:\${imageTag}" "
            }
          }
        }
