@@ -17,15 +17,6 @@ pipeline {
   }
 
   stages {    
-    
-       stage('Deploy') {
-        steps {
-             container('kubectl') {
-                sh "kubectl get pods"
-             }
-          }
-       }
-    
        stage('Init') {
           steps {
             checkout scm
@@ -48,6 +39,14 @@ pipeline {
               sh "docker push ektajha/java-image:v1"
            }
          }
+       }
+    
+      stage('Deploy') {
+        steps {
+             container('kubectl') {
+                sh "kubectl get pods"
+             }
+          }
        }
    }
 }
