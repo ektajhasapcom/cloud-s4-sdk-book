@@ -4,4 +4,4 @@
 
 replicaCount: 1
 environment: default
-imagetag: v1
+imageversion: v1
