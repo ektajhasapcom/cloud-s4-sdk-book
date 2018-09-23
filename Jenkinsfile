@@ -41,11 +41,19 @@ pipeline {
          }
        }
     
-      stage('Deploy') {
+      stage('Deploy to Production') {
+        steps {
+             container('helm') {
+                sh "helm init"
+                sh "helm install --name addressbook   --set imageversion=$tag addressbook"
+             }
+          }
+       }
+    
+      stage('Deployed result') {
         steps {
              container('kubectl') {
-                sh "helm init";
-                sh "helm install --name addressbook   --set imageversion=$tag addressbook"
+                sh "kubectl get pods"
              }
           }
        }
