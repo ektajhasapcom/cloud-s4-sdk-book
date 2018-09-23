@@ -11,32 +11,9 @@ pipeline {
   stages {    
     
        stage('Deploy') {
-        agent {
-                  kubernetes {
-                   label 'jenkinsslave'
-                   defaultContainer 'jnlp'
-                   yaml """
-                   apiVersion: v1
-                   kind: Pod
-                   metadata:
-                   labels:
-                     component: ci
-                   spec:
-                  # Use service account that can deploy to all namespaces
-                  serviceAccountName: cd-jenkins
-                  containers:
-                  - name: kubectl
-                    image: lachlanevenson/k8s-kubectl
-                    command:
-                    - cat
-                   tty: true
-  
-                   """
-                  }
-               }
         steps {
              container('kubectl') {
-               sh "kubectl get pods"
+                sh "kubectl get pods"
              }
           }
        }
