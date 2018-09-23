@@ -1,4 +1,4 @@
-def  imageTag = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+def  tag = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 def imageName = "ektajha/addressbooklatest"
 
 
@@ -35,8 +35,8 @@ pipeline {
         steps {
            container('docker') {
               sh "docker login --username ektajha --password Mapapaji@99"
-             sh "docker build -t ${imageName}:${imageTag} ."
-              sh "docker push ${imageName}:${imageTag} "
+             sh "docker build -t ${imageName}:${tag} ."
+              sh "docker push ${imageName}:${tag} "
            }
          }
        }
@@ -44,7 +44,7 @@ pipeline {
       stage('Deploy') {
         steps {
              container('kubectl') {
-                helm install --name addressbook  addressbook --set imagetag=${imageTag}
+                helm install --name addressbook  addressbook --set imagetag=${tag}
              }
           }
        }
