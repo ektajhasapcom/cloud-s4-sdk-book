@@ -37,12 +37,13 @@ spec:
     
         
         stage('Docker Push') {
+           container('docker') {
             steps {
                  withDockerRegistry([ credentialsId: "git", url: "https://hub.docker.com/" ]) {
                         // following commands will be executed within logged docker registry
                           sh 'docker push ektajha/mockserver:v10'
                  }
-            }
+            }}
         }
 
     }
