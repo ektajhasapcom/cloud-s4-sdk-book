@@ -4,6 +4,14 @@
 pipeline {
   agent any
   
+  options {
+        timeout(time: 120, unit: 'MINUTES')
+        timestamps()
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        skipDefaultCheckout()
+  }
+
+  
   tools {
         maven 'M3'
   }
