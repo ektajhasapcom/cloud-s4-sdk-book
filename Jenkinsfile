@@ -43,6 +43,8 @@ pipeline {
       stage('Deploy') {
         steps {
              container('kubectl') {
+                sh "sed -i.bak 's#ektajha/addressbooklatest:v1#${imageTag}#' deployment.yaml"
+                sh "kubectl apply -f deployment.yaml"
                 sh "kubectl get pods"
              }
           }
