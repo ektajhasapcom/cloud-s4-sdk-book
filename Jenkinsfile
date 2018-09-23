@@ -15,7 +15,7 @@ pipeline {
         
         stage('Docker Push') {
             steps {
-                 withDockerRegistry([ credentialsId: "docker", url: "https://hub.docker.com/" ]) {
+                 withDockerRegistry([ credentialsId: "git", url: "https://hub.docker.com/" ]) {
                         // following commands will be executed within logged docker registry
                           sh 'docker push ektajha/mockserver:v10'
                  }
