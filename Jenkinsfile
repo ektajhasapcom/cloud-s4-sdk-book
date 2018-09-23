@@ -36,7 +36,7 @@ pipeline {
        stage('Deploy') {
         steps {
            container('kubectl') {
-              sh "kubectl config set-context $(kubectl config current-context) --namespace=default"
+              sh "kubectl config set-context \$(kubectl config current-context) --namespace=default"
               sh "kubectl get pods"
            }
          }
