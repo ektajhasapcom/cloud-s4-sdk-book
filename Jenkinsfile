@@ -17,11 +17,9 @@ pipeline {
 
     
       stage('Build') {
-                stage("Java Build") {
-                   steps {
-                       sh "mvn clean install -Dmaven.test.failure.ignore=true"
-                   }
-                }
+             steps {
+                 sh "mvn clean install -Dmaven.test.failure.ignore=true"
+             }
       }
     
       stage('Build and push image with Container Builder') {
