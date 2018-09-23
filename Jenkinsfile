@@ -12,12 +12,10 @@ pipeline {
     
        stage('Deploy') {
         steps {
-           container('kubectl') {
-              sh withKubeConfig([credentialsId: 'kubeconfig'
-                    ]) {
+              sh withKubeConfig([credentialsId: 'kubeconfig', serverUrl: 'https://kubernetes.default',
+                    contextName: 'kubernetes.default']) {
                         sh 'kubectl get pods'
-                   }
-           }
+              }
          }
        }
     
