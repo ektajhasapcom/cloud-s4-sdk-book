@@ -1,4 +1,4 @@
-/*package com.sap.cloud.s4hana.examples.addressmgr;
+package com.sap.cloud.s4hana.examples.addressmgr;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -27,6 +27,7 @@ import static org.hamcrest.Matchers.*;
 @RunWith( Arquillian.class )
 public class AddressServletTest
 {
+    /*
     private static final MockUtil mockUtil = new MockUtil();
     private static final String CREATE_BODY_TEMPLATE =
             "{\n" +
@@ -141,5 +142,6 @@ public class AddressServletTest
     private BusinessPartnerAddress getAddress(final String bupaId, final String addressId) {
         return new GetAddressCommand(bupaId, addressId).execute();
     }
+    */
 }
-*/
+
