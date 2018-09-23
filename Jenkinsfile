@@ -13,8 +13,8 @@ pipeline {
       stage ('Init') {
         steps {
             checkout scm
-            docker pull docker.io/dockerkyma/mockserverimage:latest
-            docker run -p 3000:3000 dockerkyma/mockserverimage:latest
+            sh "docker pull ektajha/mockserverimage:latest"
+            sh "docker run -p 3000:3000 ektajha/mockserverimage:latest"
         }
       }
     
