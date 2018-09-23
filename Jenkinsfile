@@ -1,4 +1,4 @@
-def  imageTag = "docker.io/ektajha/addressbooklatest:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+def  imageTag = "ektajha/addressbooklatest:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 
 
 pipeline {
@@ -34,9 +34,8 @@ pipeline {
         steps {
            container('docker') {
               sh "docker login --username ektajha --password Mapapaji@99"
-              sh "docker build -t java-image:v1 ."
-              sh "docker tag java-image:v1 ektajha/java-image:v1"
-              sh "docker push ektajha/java-image:v1"
+              sh "docker build -t ${imageTag} ."
+              sh "docker push ${imageTag}"
            }
          }
        }
