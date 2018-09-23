@@ -15,8 +15,8 @@ pipeline {
             checkout scm
             container('docker') {
                   sh "docker login --username ektajha --password Mapapaji@99"
-                  sh "docker pull docker.io/ektajha/mockserverimage:v10"
-                  sh "docker run -p 3000:3000 ektajha/mockserverimage:v10"
+                  sh "docker pull docker.io/ektajha/mockserver:v10"
+                  sh "docker run -p 3000:3000 ektajha/mockserver:v10"
             }
         }
       }
