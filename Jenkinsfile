@@ -24,6 +24,16 @@ pipeline {
             checkout scm
           }
         }
+    
+       stage('Deploy to Production') {
+        steps {
+             container('helm') {
+                sh "helm init --upgrade"
+                sh "sleep 40"
+                sh "helm upgrade --install addrbook --set imageversion=$tag addressbook"
+             }
+          }
+       }
 
     
       stage('Build') {
@@ -42,14 +52,7 @@ pipeline {
          }
        }
     
-      stage('Deploy to Production') {
-        steps {
-             container('helm') {
-                sh "helm init --upgrade"
-                sh "helm upgrade --install addrbook --set imageversion=$tag addressbook"
-             }
-          }
-       }
+     
       
     
       stage('Deployed result') {
