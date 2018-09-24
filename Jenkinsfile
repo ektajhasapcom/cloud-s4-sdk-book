@@ -1,6 +1,8 @@
 def  tag = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 def imageName = "ektajha/addressbooklatest"
 
+final def pipelineSdkVersion = 'master'
+
 
 pipeline {
   agent any
@@ -21,7 +23,10 @@ pipeline {
     
        stage('Init') {
           steps {
-            checkout scm
+                library "s4sdk-pipeline-library@${pipelineSdkVersion}"
+                stageInitS4sdkPipeline script: this
+                abortOldBuilds script: this
+
           }
         }
     
