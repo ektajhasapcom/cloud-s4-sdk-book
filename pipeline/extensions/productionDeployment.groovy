@@ -7,6 +7,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                 variable: 'KUBECONFIG'
             ]]){
                  sh "kubectl --kubeconfig=$KUBECONFIG"
+                 sh "kubectl get pods"
               }
     }
     
