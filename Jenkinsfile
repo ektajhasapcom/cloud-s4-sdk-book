@@ -1,6 +1,7 @@
 def  tag = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
 def imageName = "ektajha/addressbooklatest"
 
+final def pipelineSdkVersion = 'master'
 
 pipeline {
   agent any
@@ -21,15 +22,25 @@ pipeline {
     
        stage('Init') {
           steps {
-            checkout scm
+                library "s4sdk-pipeline-library@${pipelineSdkVersion}"
+                stageInitS4sdkPipeline script: this
+                abortOldBuilds script: this
           }
         }
     
       stage('Build') {
              steps {
-                 sh "mvn clean install -Dmaven.test.failure.ignore=true"
+                 stageBuild script: this
              }
       }
+    
+      stage('Local Tests') {
+            parallel {
+                stage("Static Code Checks") { steps { stageStaticCodeChecks script: this } }
+                stage("Backend Unit Tests") { steps { stageUnitTests script: this } }
+                stage("Backend Integration Tests") { steps { stageIntegrationTests script: this } }
+            }
+        }
     
       stage('Build and push image with Container Builder') {
         steps {
