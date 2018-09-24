@@ -1,9 +1,13 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
     
      dockerExecute(script: this, dockerImage: 'lachlanevenson/k8s-kubectl'){ 
-       sh  "cp config ~/.kube/config"
-       sh  "kubectl config get-contexts"             
-       sh  "kubectl get pods"
+        withCredentials([[
+                $class: 'FileBinding',
+                credentialsId: 'k8s-credentials',
+                variable: 'KUBECONFIG'
+            ]]){
+                 sh "kubectl --kubeconfig=$KUBECONFIG"
+              }
     }
     
 }
