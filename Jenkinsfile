@@ -40,8 +40,16 @@ pipeline {
                      library "s4sdk-pipeline-library@${pipelineSdkVersion}"
                      stageStaticCodeChecks script: this
                 } }
-                stage("Backend Unit Tests") { steps { stageUnitTests script: this } }
-                stage("Backend Integration Tests") { steps { stageIntegrationTests script: this } }
+                stage("Backend Unit Tests") { steps { 
+                     library "s4sdk-pipeline-library@${pipelineSdkVersion}"
+                     library "s4sdk-pipeline-library@${pipelineSdkVersion}"
+                    stageUnitTests script: this 
+                } }
+                stage("Backend Integration Tests") { steps { 
+                     library "s4sdk-pipeline-library@${pipelineSdkVersion}"
+                     library "s4sdk-pipeline-library@${pipelineSdkVersion}"
+                     stageIntegrationTests script: this 
+                } }
             }
         }
 
