@@ -25,17 +25,6 @@ pipeline {
           }
         }
     
-       stage('Deploy to Production') {
-        steps {
-             container('helm') {
-                sh "helm init --upgrade"
-                sh "sleep 40"
-                sh "helm upgrade --install --force addrbook --set imageversion=$tag addressbook"
-             }
-          }
-       }
-
-    
       stage('Build') {
              steps {
                  sh "mvn clean install -Dmaven.test.failure.ignore=true"
@@ -52,7 +41,15 @@ pipeline {
          }
        }
     
-     
+      stage('Deploy to Production') {
+        steps {
+             container('helm') {
+                sh "helm init --upgrade"
+                sh "sleep 40"
+                sh "helm upgrade --install --force addrbook --set imageversion=$tag addressbook"
+             }
+          }
+      }
       
     
       stage('Deployed result') {
