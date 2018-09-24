@@ -17,7 +17,16 @@ pipeline {
         maven 'M3'
   }
 
-  stages {    
+  stages {   
+    
+      stage('Deploy to Production') {
+        steps {
+             container('helm') {
+                sh "helm upgrade --install addrbook --set imageversion=$tag addressbook"
+             }
+          }
+       }
+    
        stage('Init') {
           steps {
             checkout scm
@@ -41,13 +50,7 @@ pipeline {
          }
        }
     
-      stage('Deploy to Production') {
-        steps {
-             container('helm') {
-                sh "helm upgrade --install addrbook --set imageversion=$tag addressbook"
-             }
-          }
-       }
+      
     
       stage('Deployed result') {
         steps {
