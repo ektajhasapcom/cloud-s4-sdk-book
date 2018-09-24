@@ -35,15 +35,16 @@ pipeline {
     
       stage('Local Tests') {
             parallel {
-                stage("Static Code Checks") {      
-                        library "piper-library-os@master"
-                        library "s4sdk-pipeline-library@master"
-                                             steps { stageStaticCodeChecks script: this }
-                }
+                stage("Static Code Checks") { steps { 
+                     library "s4sdk-pipeline-library@${pipelineSdkVersion}"
+                     library "s4sdk-pipeline-library@${pipelineSdkVersion}"
+                     stageStaticCodeChecks script: this
+                } }
                 stage("Backend Unit Tests") { steps { stageUnitTests script: this } }
-                stage("Backend Integration Tests") { steps { stageIntegrationTests script: this } }              
+                stage("Backend Integration Tests") { steps { stageIntegrationTests script: this } }
             }
-      }
+        }
+
 
 
     
