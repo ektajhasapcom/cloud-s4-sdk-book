@@ -1,11 +1,7 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
-    dockerExecuteOnKubernetes(script: script, containerMap: ['lachlanevenson/k8s-kubectl': 'kubectl', 'devth/helm': 'helm']){
-       container('kubectl')  {
-              withCredentials([[$class: 'UsernamePasswordMultiBinding', 
-                        credentialsId: 'kubeconfig']]) {
-                    
+    dockerExecuteOnKubernetes(containerMap: ['lachlanevenson/k8s-kubectl': 'kubectl', 'devth/helm': 'helm']){
+       container('kubectl')  {                 
                     sh "kubectl get pods"
-                }
        }
        container('helm'){
          sh "helm init --upgrade"
