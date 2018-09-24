@@ -44,7 +44,6 @@ pipeline {
       stage('Deploy to Production') {
         steps {
              container('helm') {
-                sh "helm init"
                 sh "helm upgrade --install addrbook --set imageversion=$tag addressbook"
              }
           }
