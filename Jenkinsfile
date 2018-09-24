@@ -23,13 +23,15 @@ pipeline {
      
       stage('Init') {
           steps {
-            checkout scm
+           library "s4sdk-pipeline-library@${pipelineSdkVersion}"
+           stageInitS4sdkPipeline script: this
+           checkout scm
           }
        }
     
       stage('Build') {
              steps {
-                 sh "mvn clean install -Dmaven.test.failure.ignore=true"
+                  stageBuild script: this
              }
       }
     
