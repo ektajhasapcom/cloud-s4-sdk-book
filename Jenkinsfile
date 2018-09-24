@@ -5,6 +5,8 @@ final def pipelineSdkVersion = 'master'
 
 
 pipeline {
+   library "piper-library-os@google-next"
+   library "s4sdk-pipeline-library@google-next"
   agent any
   
   options {
@@ -21,6 +23,21 @@ pipeline {
 
   stages {   
     
+       stage('Local Tests') {
+            parallel {
+                stage("Static Code Checks") { steps { 
+                     stageStaticCodeChecks script: this
+                } }
+                stage("Backend Unit Tests") { steps { 
+                    stageUnitTests script: this 
+                } }
+                stage("Backend Integration Tests") { steps { 
+                     stageIntegrationTests script: this 
+                } }
+            }
+        }
+
+    
        stage('Init') {
           steps {
             checkout scm
@@ -33,25 +50,6 @@ pipeline {
              }
       }
     
-      stage('Local Tests') {
-            parallel {
-                stage("Static Code Checks") { steps { 
-                     library "s4sdk-pipeline-library@${pipelineSdkVersion}"
-                     library "s4sdk-pipeline-library@${pipelineSdkVersion}"
-                     stageStaticCodeChecks script: this
-                } }
-                stage("Backend Unit Tests") { steps { 
-                     library "s4sdk-pipeline-library@${pipelineSdkVersion}"
-                     library "s4sdk-pipeline-library@${pipelineSdkVersion}"
-                    stageUnitTests script: this 
-                } }
-                stage("Backend Integration Tests") { steps { 
-                     library "s4sdk-pipeline-library@${pipelineSdkVersion}"
-                     library "s4sdk-pipeline-library@${pipelineSdkVersion}"
-                     stageIntegrationTests script: this 
-                } }
-            }
-        }
 
 
 
