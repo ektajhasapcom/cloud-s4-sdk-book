@@ -30,7 +30,7 @@ pipeline {
              container('helm') {
                 sh "helm init --upgrade"
                 sh "sleep 40"
-                sh "helm upgrade --install addrbook --set imageversion=$tag addressbook"
+                sh "helm upgrade --install --force addrbook --set imageversion=$tag addressbook"
              }
           }
        }
