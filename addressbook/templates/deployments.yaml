@@ -3,22 +3,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata: 
   labels: 
-    app: addressbook
-  name: addressbook
+    app: addressbookjava
+  name: addressbookjava
 spec: 
-  replicas: {{ $.Values.replicaCount }}
-   selector: 
+  replicas: 1
+  selector: 
     matchLabels: 
-      app: addressbook
+      app: addressbookjava
   template: 
-     metadata: 
+    metadata: 
       labels: 
-        app: addressbook
+        app: addressbookjava
     spec: 
       containers: 
         - 
-          image: ektajha/addressbooklatest:{{ $.Values.imageversion }}
-          name: addressbook
+          image: "docker.io/ektajha/addressbooklatest:{{.Values.imageversion}}"
+          name: addressbookjava
           ports: 
             - 
               containerPort: 8080
