@@ -45,7 +45,7 @@ pipeline {
         steps {
              container('helm') {
                 sh "helm init"
-                sh "helm upgrade --install --name addressbook   --set imageversion=$tag addressbook"
+                sh "helm upgrade --install addrbook --set imageversion=$tag addressbook"
              }
           }
        }
