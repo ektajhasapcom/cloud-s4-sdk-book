@@ -1,5 +1,4 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
-    export ON_K8S=true"
     dockerExecuteOnKubernetes(script: script, containerMap: ['lachlanevenson/k8s-kubectl': 'kubectl', 'devth/helm': 'helm']){
        container('kubectl')  {
               withCredentials([[$class: 'UsernamePasswordMultiBinding', 
