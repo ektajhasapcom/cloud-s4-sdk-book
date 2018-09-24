@@ -23,38 +23,15 @@ pipeline {
      
       stage('Init') {
           steps {
-              library "piper-library-os@master"
-             library "s4sdk-pipeline-library@master"
             checkout scm
           }
        }
     
-    
-       stage('Local Tests') {
-            parallel {
-                stage("Static Code Checks") { steps { 
-                     stageStaticCodeChecks script: this
-                } }
-                stage("Backend Unit Tests") { steps { 
-                    stageUnitTests script: this 
-                } }
-                stage("Backend Integration Tests") { steps { 
-                     stageIntegrationTests script: this 
-                } }
-            }
-        }
-
-    
-     
       stage('Build') {
              steps {
                  sh "mvn clean install -Dmaven.test.failure.ignore=true"
              }
       }
-    
-
-
-
     
       stage('Build and push image with Container Builder') {
         steps {
