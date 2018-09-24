@@ -30,6 +30,7 @@ pipeline {
       stage('Build') {
              steps {
                  library "s4sdk-pipeline-library@${pipelineSdkVersion}"
+                 library "piper-library-os@${pipelineSdkVersion}"
                  stageBuild script: this
              }
       }
