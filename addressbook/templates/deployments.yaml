@@ -2,15 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: {{ template "addressbook.fullname" . }}-java
-  namespace: {{ $.Values.environment }}
+  labels: 
+    app: addressbook
+  name: addressbook
 spec: 
   replicas: {{ $.Values.replicaCount }}
+   selector: 
+    matchLabels: 
+      app: addressbook
   template: 
-    metadata:
-      name: {{ template "addressbook.fullname" .}}
+     metadata: 
       labels: 
-        chart: {{ template "addressbook.fullname" .}}
+        app: addressbook
     spec: 
       containers: 
         - 
