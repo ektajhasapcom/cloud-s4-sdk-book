@@ -23,10 +23,7 @@ pipeline {
     
        stage('Init') {
           steps {
-                library "s4sdk-pipeline-library@${pipelineSdkVersion}"
-                stageInitS4sdkPipeline script: this
-                abortOldBuilds script: this
-
+                checkout scm
           }
         }
     
