@@ -8,7 +8,7 @@ spec:
   replicas: {{ $.Values.replicaCount }}
   template: 
     metadata:
-      name: addressbook
+      name: {{ template "addressbook.fullname" .}}
       labels: 
         chart: {{ template "addressbook.fullname" .}}
     spec: 
