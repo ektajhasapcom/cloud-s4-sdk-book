@@ -29,7 +29,8 @@ pipeline {
     
       stage('Build') {
              steps {
-                 sh "mvn clean install -Dmaven.test.failure.ignore=true"
+                 library "s4sdk-pipeline-library@${pipelineSdkVersion}"
+                 stageBuild script: this
              }
       }
     
