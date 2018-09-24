@@ -5,8 +5,6 @@ final def pipelineSdkVersion = 'master'
 
 
 pipeline {
-   library "piper-library-os@google-next"
-   library "s4sdk-pipeline-library@google-next"
   agent any
   
   options {
@@ -22,6 +20,15 @@ pipeline {
   }
 
   stages {   
+     
+      stage('Init') {
+          steps {
+              library "piper-library-os@master"
+             library "s4sdk-pipeline-library@master"
+            checkout scm
+          }
+       }
+    
     
        stage('Local Tests') {
             parallel {
@@ -38,12 +45,7 @@ pipeline {
         }
 
     
-       stage('Init') {
-          steps {
-            checkout scm
-          }
-        }
-    
+     
       stage('Build') {
              steps {
                  sh "mvn clean install -Dmaven.test.failure.ignore=true"
