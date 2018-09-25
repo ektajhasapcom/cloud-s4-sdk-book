@@ -1,5 +1,3 @@
-#!/usr/bin/env groovy 
-
 node {
     deleteDir()
     library "piper-library-os@google-next"
