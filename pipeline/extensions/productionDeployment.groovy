@@ -1,5 +1,8 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
     
+     def  tag = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+     def imageName = "ektajha/addressbooklatest"
+     
      dockerExecute(script: this, dockerImage: 'lachlanevenson/k8s-kubectl'){ 
         withCredentials([[
                 $class: 'FileBinding',
@@ -8,8 +11,13 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
             ]]){
                  sh "kubectl --kubeconfig=$KUBECONFIG"
                  sh "kubectl get pods"
-                 sh "kubectl apply -f deployment.yaml"
               }
+    }
+    
+     dockerExecute(script: this, dockerImage: 'devth/helm'){ 
+          sh "helm init --upgrade"
+          sh "sleep 40"
+          sh "helm upgrade --install --force addrbook --set imageversion=$tag addressbook"
     }
     
 }
