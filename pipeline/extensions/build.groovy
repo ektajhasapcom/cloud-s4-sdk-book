@@ -5,6 +5,8 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
     
     originalStage()
     
+    sh "docker ps"
+    
     sh "docker run --privileged -d -e DOCKER_DAEMON_ARGS='-D' docker:dind"
       
     withCredentials([usernamePassword(credentialsId: 'dockerCredentialId', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
