@@ -5,7 +5,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
     
     originalStage()
     
-     dockerExecute(script: this, dockerImage: 'docker:dind'){ 
+     dockerExecute(script: this, dockerImage: 'docker:dind',  dockerVolumeBind: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]){ 
         withCredentials([usernamePassword(credentialsId: 'dockerCredentialId', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                   sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                   sh "docker build -t ${imageName}:${tag} ."
