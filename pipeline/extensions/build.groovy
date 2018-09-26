@@ -5,19 +5,13 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
     
     originalStage()
     
-     dockerExecute(script: this, dockerImage: 'ektajha/k8shelm:v1'){ 
-        withCredentials([
-            [$class: 'UsernamePasswordMultiBinding', 
-            credentialsId: dockerCredentialId, 
-            passwordVariable: 'password', usernameVariable: 'user']
-              ]){
-                  sh "docker login --username $user --password $password "
+     dockerExecute(script: this, dockerImage: 'docker:dind'){ 
+        withCredentials([usernamePassword(credentialsId: 'dockerCredentialId', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                  sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                   sh "docker build -t ${imageName}:${tag} ."
                   sh "docker push ${imageName}:${tag}"     
-              }
+        }
     }
-    
-    
 }
 
 return this
