@@ -1,9 +1,9 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
     
-    originalStage()
+   
     
     dockerExecute(script: this, dockerImage: 'docker:18.06'){ 
-        
+         originalStage()
          sh "docker version"
     }
      
