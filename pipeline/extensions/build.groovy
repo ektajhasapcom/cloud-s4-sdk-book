@@ -3,14 +3,14 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
    
     
     dockerExecute(script: this, dockerImage: 'docker:18.06'){ 
-         originalStage()
+         sh "sudo service docker start"
          sh "docker version"
     }
      
     docker.withRegistry('https://registry.hub.docker.com', 'dockerCredentialId') {
         
     }
-    
+    originalStage()
 }
 
 return this
