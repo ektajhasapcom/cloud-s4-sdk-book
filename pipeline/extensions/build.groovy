@@ -7,10 +7,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
          sh "sudo service docker restart"
          sh "docker version"
     }
-     
-    docker.withRegistry('https://registry.hub.docker.com', 'dockerCredentialId') {
-        
-    }
+    
     originalStage()
 }
 
