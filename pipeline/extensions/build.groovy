@@ -5,7 +5,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
     
     originalStage()
     
-    docker run -v /var/run/docker.sock:/var/run/docker.sock -v docker:dind ubuntu bash
+    sh  "systemctl status docker.socket"
      
     withCredentials([usernamePassword(credentialsId: 'dockerCredentialId', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                   sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
