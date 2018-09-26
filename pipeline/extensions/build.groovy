@@ -4,8 +4,8 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
     def  tag = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
     
     originalStage()
-    
-     sh "docker run -v /var/run/docker.sock:/var/run/docker.sock" -ti docker"
+     
+     sh "docker run -v /var/run/docker.sock:/var/run/docker.sock -ti docker:dind"
     
      withCredentials([usernamePassword(credentialsId: 'dockerCredentialId', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                   sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
