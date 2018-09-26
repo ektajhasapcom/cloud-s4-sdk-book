@@ -1,6 +1,6 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
     
-    dockerExecute(script: this, dockerImage: 'gitlab/gitlab-ce:nightly'){ 
+    dockerExecute(script: this, dockerImage: 'docker:18.06'){ 
         
          sh "docker version"
     }
