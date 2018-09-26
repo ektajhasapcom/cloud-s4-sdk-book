@@ -9,7 +9,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
     
           sh "docker-machine ls"
           sh "docker-machine env default"   
-          sh "eval $(docker-machine env default)"
+          sh "eval \$(docker-machine env default)"
     
           withCredentials([usernamePassword(credentialsId: 'dockerCredentialId', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                   sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
