@@ -5,6 +5,8 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
     
     originalStage()
     
+    sh "docker version"
+    
     docker.withRegistry('https://registry.hub.docker.com', 'dockerCredentialId') {
         
     }
