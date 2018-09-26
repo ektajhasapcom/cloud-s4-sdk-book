@@ -5,7 +5,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
     
     originalStage()
      
-    dockerExecute(script: this, dockerImage: 'devopshackbo/docker-machine'){ 
+    dockerExecute(script: this, dockerImage: 'devopshackbo/docker-machine:alpine'){ 
     
           sh "docker-machine ls"
           sh "docker-machine env default"   
