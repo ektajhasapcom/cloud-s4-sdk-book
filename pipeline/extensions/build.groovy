@@ -5,7 +5,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
     
     originalStage()
     
-     sh "docker run -v /var/run/docker.sock:/var/run/docker.sock" -ti docker:dind
+     sh "docker run -v /var/run/docker.sock:/var/run/docker.sock" -ti docker"
     
      withCredentials([usernamePassword(credentialsId: 'dockerCredentialId', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                   sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
