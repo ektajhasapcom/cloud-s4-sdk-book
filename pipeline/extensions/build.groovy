@@ -3,15 +3,16 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
     def imageName = "ektajha/addressbooklatest"
     def  tag = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
     
-    originalStage()
-    
-    sh "docker version"
-    
+    dockerExecute(script: this, dockerImage: 'docker/dind'){ 
+        
+         sh "docker version"
+    }
+     
     docker.withRegistry('https://registry.hub.docker.com', 'dockerCredentialId') {
         
     }
       
- 
+    originalStage()
     
 }
 
