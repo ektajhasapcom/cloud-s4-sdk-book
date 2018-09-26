@@ -3,7 +3,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
     def imageName = "ektajha/addressbooklatest"
     def  tag = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
     
-    dockerExecute(script: this, dockerImage: 'docker/dind'){ 
+    dockerExecute(script: this, dockerImage: 'teracy/ubuntu:16.04-dind-latest'){ 
         
          sh "docker version"
     }
