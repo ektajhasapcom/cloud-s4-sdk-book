@@ -2,7 +2,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
     
    
     
-    dockerExecute(script: this, dockerImage: 'docker:18.06'){ 
+    dockerExecute(script: this, dockerImage: 'ektajha/dd:v1'){ 
          sh "service --version"
          sh "sudo service docker start"
          sh "docker version"
