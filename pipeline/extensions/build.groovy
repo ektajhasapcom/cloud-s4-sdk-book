@@ -1,5 +1,7 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
     
+    originalStage()
+    
     dockerExecute(script: this, dockerImage: 'docker:18.06'){ 
         
          sh "docker version"
@@ -8,8 +10,6 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
     docker.withRegistry('https://registry.hub.docker.com', 'dockerCredentialId') {
         
     }
-      
-    originalStage()
     
 }
 
