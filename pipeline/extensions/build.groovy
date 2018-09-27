@@ -1,9 +1,8 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
     
    
-   sh "docker version"
-  
-  
+   sh "docker version"  
+    originalStage()
 }
 
 return this
