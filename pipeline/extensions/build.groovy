@@ -2,7 +2,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
     
   podTemplate(label     : 'pod-hugo-app',
            containers: [
-		   containerTemplate(name: 'dind-daemon', image: 'docker:dind', ttyEnabled: true, command: 'cat', args: '/bin/sh -c', privileged: true
+		   containerTemplate(name: 'dind-daemon', image: 'docker:dind', workingDir: '/root/', ttyEnabled: true, command: 'cat', privileged: true
 		  )
 	          
 	       ],
