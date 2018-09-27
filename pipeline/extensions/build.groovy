@@ -7,11 +7,12 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
 				    volumes: [secretVolume(secretName: 'docker-graph-storage', mountPath: '/var/lib/docker')])
 	           ,
 		   containerTemplate(name: 'docker-cmds', image: 'docker', ttyEnabled: true, command: 'cat', 
-		    envVars: [containerEnvVar(key: 'DOCKER_HOST', value: 'tcp://localhost:2375')])
+		          envVars: [envVar(key: 'DOCKER_HOST', value: 'tcp://localhost:2375')]		    
+	              )
 	           ], 
 		   volumes: [emptyDirVolume(mountPath: '/var/lib/docker')]) {
              node('pod-hugo-app') {
-                container(name: 'dind-daemon') {
+                container(name: 'docker-cmds') {
                     try {
                         sh "docker version"
                         sh "docker build ."
