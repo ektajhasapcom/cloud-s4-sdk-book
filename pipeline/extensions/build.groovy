@@ -1,7 +1,7 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
    
     
-  podTemplate(label     : 'pod-hugo-app',
+  podTemplate(label:'pod-hugo-app',
            containers: [
 		   containerTemplate(name: 'dind-daemon', image: 'docker:dind', privileged: true,
 				    volumes: [secretVolume(secretName: 'docker-graph-storage', mountPath: '/var/lib/docker')])
@@ -12,7 +12,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
 	           ], 
 		   volumes: [emptyDirVolume(mountPath: '/var/lib/docker')]) {
              node('pod-hugo-app') {
-                container(name: 'docker-cmds') {
+                container('docker-cmds') {
                     try {
                         sh "docker version"
                         sh "docker build ."
