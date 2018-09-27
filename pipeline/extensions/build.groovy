@@ -1,5 +1,8 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
    
+  def  tag = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+  def imageName = "ektajha/addressbooklatest"
+
  
   podTemplate(label     : 'docker-node',
             containers: [containerTemplate(name: 'maven', image: 'maven', ttyEnabled: true, command: 'cat'),
