@@ -8,8 +8,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
              node('docker-node') {
                 container('maven') {
                     sh  "ls -lrt"
-                    unstashFiles script: this, stage: stageName
-                    sh "mvn clean install -Dmaven.test.failure.ignore=true" 
+                    originalStage()
                 }
                 container(name: 'docker') {
                     try {
