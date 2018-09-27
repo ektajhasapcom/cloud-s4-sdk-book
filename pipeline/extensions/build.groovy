@@ -1,7 +1,7 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
    
   unstashFiles script: this, stage: stageName
-  dockerExecute(script:this, dockerImage:''){
+  dockerExecute(script:this, dockerImage:'maven'){
        sh "mvn clean install"   
   }
    
