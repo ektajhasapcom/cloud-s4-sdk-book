@@ -9,7 +9,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
 	       ], 
 		   volumes: [emptyDirVolume(mountPath: '/var/lib/docker')]) {
              node('pod-hugo-app') {
-                container(name: 'docker-cmds') {
+                container(name: 'dind-daemon') {
                     try {
 			sh "sleep 60"
                         sh "docker version"
