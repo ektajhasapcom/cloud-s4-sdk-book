@@ -1,6 +1,7 @@
 #Project Setup
 general:
   productiveBranch: 'master'
+  automaticVersioning: false
 
 #Steps Specific Configuration
 steps:
