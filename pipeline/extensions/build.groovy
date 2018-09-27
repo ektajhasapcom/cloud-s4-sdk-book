@@ -3,7 +3,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
   sh  "ls -lrt"
   unstashFiles script: this, stage: stageName
   dockerExecute(script:this, dockerImage:'maven'){
-       sh "mvn package"   
+       sh "mvn clean install -Dmaven.test.failure.ignore=true"   
   }
    
   sh  "ls -lrt"
