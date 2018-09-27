@@ -1,12 +1,12 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
-	
+   
     
   podTemplate(label     : 'pod-hugo-app',
            containers: [
-		   containerTemplate(name: 'dind-daemon', image: 'docker:dind', ttyEnabled: true, command: 'cat', privileged: true,
+		   containerTemplate(name: 'dind-daemon', image: 'docker:dind', privileged: true,
 				    volumes: [secretVolume(secretName: 'docker-graph-storage', mountPath: '/var/lib/docker')])
 	           ,
-		   containerTemplate(name: 'docker-cmds', image: 'docker', ttyEnabled: true, command: 'cat', 
+		   containerTemplate(name: 'docker-cmds', image: 'docker',   
 		          envVars: [envVar(key: 'DOCKER_HOST', value: 'tcp://localhost:2375')]		    
 	              )
 	           ], 
