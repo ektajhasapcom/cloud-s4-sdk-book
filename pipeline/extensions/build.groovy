@@ -14,6 +14,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                 container(name: 'docker') {
                     try {
                          sh "ls application"
+                         sh "cd application"
                          sh "docker version"
                          sh "ls -lrt"
                          sh("docker build -t javaim:v1 /application/Dockerfile")
