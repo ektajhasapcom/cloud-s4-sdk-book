@@ -1,5 +1,10 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
    
+  unstashFiles script: this, stage: stageName
+  dockerExecute(script:this, dockerImage:''){
+       sh "mvn clean install"   
+  }
+   
     
   podTemplate(label     : 'pod-hugo-app',
             containers: [containerTemplate(name: 'docker', image: 'docker', ttyEnabled: true, command: 'cat')], volumes: [
