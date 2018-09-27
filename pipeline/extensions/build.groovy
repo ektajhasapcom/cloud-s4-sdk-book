@@ -15,7 +15,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                     try {
                          sh "docker version"
                          sh "ls -lrt"
-                         docker build -t javaim:v1 application/Dockerfile
+                         sh("docker build -t javaim:v1 /application/Dockerfile")
                     } finally {
                         echo "Finally"
                      }
