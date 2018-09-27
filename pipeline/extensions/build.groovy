@@ -5,8 +5,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
 		   containerTemplate(name: 'dind-daemon', image: 'docker:dind', ttyEnabled: true, command: 'cat', privileged: true
 		  )
 	          
-	       ], 
-		   volumes: [emptyDirVolume(mountPath: '/var/lib/docker')]) {
+	       ]) {
              node('pod-hugo-app') {
                 container(name: 'dind-daemon') {
                     try {
