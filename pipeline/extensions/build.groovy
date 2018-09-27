@@ -14,6 +14,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
              node('pod-hugo-app') {
                 container(name: 'docker-cmds') {
                     try {
+			sh "sleep 40"
                         sh "docker version"
                         sh "docker build ."
                     } finally {
