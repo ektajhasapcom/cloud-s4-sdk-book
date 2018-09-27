@@ -16,8 +16,11 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                 }
                 container(name: 'docker') {
                     try {
-                         sh "docker version"
-                         sh "ls -lrt"
+                         withCredentials([usernamePassword(credentialsId: 'dockerCredentialId', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                                sh "docker build -t ${imageName}:${tag} ."
+                                sh "docker push ${imageName}:${tag}"     
+                         }
                     } finally {
                         echo "Finally"
                      }
