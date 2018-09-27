@@ -1,7 +1,5 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
 	
-sh "docker run --privileged --name some-docker -d docker:dind"
-sh "docker version"
     
  podTemplate(label     : 'pod-hugo-app',
            containers: [
