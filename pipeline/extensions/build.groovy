@@ -7,7 +7,6 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                   hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]) {
              node('docker-node') {
                 container('maven') {
-                    sh  "checkout scm"
                     sh  "ls -lrt"
                     unstashFiles script: this, stage: stageName
                     sh "mvn clean install -Dmaven.test.failure.ignore=true" 
