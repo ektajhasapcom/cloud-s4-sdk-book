@@ -7,8 +7,9 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                   hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')]) {
              node('docker-node') {
                 container('maven') {
+                    checkout scm
                     sh  "ls -lrt"
-                    originalStage()
+                    sh  "mvn clean install"
                 }
                 container(name: 'docker') {
                     try {
