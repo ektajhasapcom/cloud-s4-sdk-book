@@ -8,7 +8,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
 		   volumes: [
                   emptyDirVolume(mountPath: '/var/lib/docker')]) {
              node('pod-hugo-app') {
-                container(name: 'docker') {
+                container(name: 'docker-cmds') {
                     try {
                         sh "docker version"
                         sh "docker build ."
