@@ -8,6 +8,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
             ]]){
                  sh "kubectl --kubeconfig=$KUBECONFIG"
                  sh "kubectl apply -f docker.yaml"
+                 sh "sleep 40"
                  sh "kubectl get pods"
                  sh "docker version"           
               }
