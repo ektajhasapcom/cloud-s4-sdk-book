@@ -6,7 +6,7 @@ spec:
     containers: 
       - name: docker-cmds 
         image: docker:1.12.6 
-        command: ['docker', 'run', '-p', '80:80', 'httpd:latest'] 
+        command: ['docker', 'build', '-t', 'javai:v1', '.'] 
         resources: 
             requests: 
                 cpu: 10m 
