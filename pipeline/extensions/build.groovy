@@ -3,7 +3,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
     
   podTemplate(label     : 'pod-hugo-app',
            containers: [
-		   containerTemplate(name: 'dind-daemon', image: 'docker:dind', ttyEnabled: true, command: 'cat', privileged: true,
+		   containerTemplate(name: 'dind-daemon', image: 'docker:1.12.6-dind', ttyEnabled: true, command: 'cat', privileged: true,
 				    volumes: [hostPathVolume(hostPath: '/var/lib/docker', mountPath: '/var/lib/docker')],
 				    ports: [portMapping(containerPort: 2375, hostPort: 2375)])
 	           ,
