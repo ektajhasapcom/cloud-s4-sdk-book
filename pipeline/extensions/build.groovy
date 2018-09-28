@@ -23,6 +23,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                                 sh "docker push ${imageName}:${tag}"   
                          }
                     } finally {
+                        originalStage()
                         echo "Finally"
                      }
                 }
