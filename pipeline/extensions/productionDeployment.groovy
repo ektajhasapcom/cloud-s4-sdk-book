@@ -11,7 +11,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                  sh "kubectl --kubeconfig=$KUBECONFIG"
                  sh "kubectl get pods"
                  sh "helm init --upgrade"
-                 sh "sleep 40"
+                 sh "sleep 10"
                  sh "helm upgrade --install --force addrbook --set imageversion=$tag addressbook --namespace=production"            
               }
     }
