@@ -19,6 +19,11 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                                 sh  "ls -lrt"
                                 originalStage()
                                 sh "ls -lrt"
+                                sh "whoami"
+                                sh "pwd"
+                                sh "cd application"
+                                sh "cd target"
+                                sh "ls target"
                                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                                 sh "docker build -t ${imageName}:${tag} ."
                                 sh "docker push ${imageName}:${tag}"     
