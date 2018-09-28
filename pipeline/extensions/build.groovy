@@ -22,7 +22,6 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                                 sh "docker build -t ${imageName}:${tag} ."
                                 sh "docker push ${imageName}:${tag}"     
-                                stashFiles script : this, stepName: 'build'  
                          }
                     } finally {
                         echo "Finally"
