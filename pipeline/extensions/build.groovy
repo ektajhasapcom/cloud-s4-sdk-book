@@ -11,14 +11,11 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
              node('docker-node') {
                 container('maven') {
                                 checkout scm
-                                sh  "ls -lrt"
                                 sh "mvn clean install"
                 }
                 container(name: 'docker') {
                     try {
                          withCredentials([usernamePassword(credentialsId: 'dockerCredentialId', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-                                sh "chown -R 1000:1000 ."
-                                sh "ls -lrt"
                                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                                 sh "docker build -t ${imageName}:${tag} ."
                                 sh "docker push ${imageName}:${tag}"     
