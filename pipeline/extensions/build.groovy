@@ -25,8 +25,6 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                                 stashFiles script : this, stepName: 'build'  
                          }
                     } finally {
-                        checkout scm
-                        originalStage()
                         echo "Finally"
                      }
                 }
