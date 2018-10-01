@@ -7,7 +7,8 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
              node('build-node') {
                 container(name: 'kubectl') {
                     try {
-                         sh "Kubectl get pods"
+                         sh "kubectl get pods"
+                         sh "kubectl apply -f build.yaml"
                     } finally {
                         echo "Finally"
                      }
