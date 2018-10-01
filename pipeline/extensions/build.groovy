@@ -4,7 +4,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                     serverUrl: 'https://api.kymatest.cloudpot.shoot.canary.k8s-hana.ondemand.com'
                     contextName: 'shoot--cloudpot--kymatest'
                     ]) {
-            sh 'kubectl get pods'
+            sh "kubectl get pods"
     }
 }
 
