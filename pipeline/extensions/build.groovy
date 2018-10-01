@@ -1,7 +1,6 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
    
     withKubeConfig([credentialsId: 'k8s-credentials',
-                    caCertificate: '<ca-certificate>',
                     serverUrl: 'https://api.kymatest.cloudpot.shoot.canary.k8s-hana.ondemand.com'
                     contextName: 'shoot--cloudpot--kymatest'
                     ]) {
