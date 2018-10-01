@@ -1,21 +1,20 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
-      
-     podTemplate(label     : 'build-node',
-            containers: [containerTemplate(name: 'kubectl', image: 'ektajha/k8shelm:v1', ttyEnabled: true, command: 'cat',
-            volumes: [secretVolume(secretName: 'kube-config', mountPath: '/root/.kube')]
-            )]) {
-             node('build-node') {
-                container(name: 'kubectl') {
-                    try {
-                         sh "kubectl get pods"
-                         sh "kubectl apply -f build.yaml"
-                    } finally {
-                        echo "Finally"
-                     }
-                }
-            }
-        }
     
+     
+     dockerExecute(script: this, dockerImage: 'ektajha/k8shelm:v1'){ 
+        withCredentials([[
+                $class: 'FileBinding',
+                credentialsId: 'k8s-credentials',
+                variable: 'KUBECONFIG'
+            ]]){
+                 sh "kubectl --kubeconfig=$KUBECONFIG"
+                 sh "kubectl get pods"
+                 sh "helm init --upgrade"
+                 sh "sleep 10"
+                 sh "helm upgrade --install --force addrbook  addressbook"            
+              }
+    }
+
 }
 
 return this
