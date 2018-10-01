@@ -1,7 +1,7 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
     
      
-     dockerExecute(script: this, dockerImage: 'ektajha/k8shelm:v1'){ 
+     dockerExecute(script: this, dockerImage: 'ektajha/kubectl:v1'){ 
         withCredentials([[
                 $class: 'FileBinding',
                 credentialsId: 'k8s-credentials',
@@ -10,9 +10,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                  sh "kubectl --kubeconfig=$KUBECONFIG"
                  sh "kubectl cluster-info"
                  sh "kubectl get pods"
-                 sh "helm init --upgrade"
-                 sh "sleep 10"
-                 sh "helm upgrade --install --force addrbook  addressbook"            
+          
               }
     }
 
