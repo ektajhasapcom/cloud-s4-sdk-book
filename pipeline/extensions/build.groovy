@@ -8,6 +8,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                 variable: 'KUBECONFIG'
             ]]){
                  sh "kubectl --kubeconfig=$KUBECONFIG"
+                 sh "kubectl cluster-info"
                  sh "kubectl get pods"
                  sh "helm init --upgrade"
                  sh "sleep 10"
