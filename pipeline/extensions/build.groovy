@@ -1,9 +1,7 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
    
-    withKubeConfig([credentialsId: 'k8s-credentials',
-                    serverUrl: 'https://api.kymatest.cloudpot.shoot.canary.k8s-hana.ondemand.com'
-                    contextName: 'shoot--cloudpot--kymatest'
-                    ]) {
+    withKubeConfig([credentialsId: 'k8s-credentials']) {
+                    
             sh "kubectl get pods"
     }
 }
