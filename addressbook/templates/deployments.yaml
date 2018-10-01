@@ -17,14 +17,15 @@ spec:
     spec: 
       containers: 
         - 
-          image: "docker.io/ektajha/addressbook"
+          env: 
+            - 
+              name: destinations
+              valueFrom: 
+                configMapKeyRef: 
+                  key: url
+                  name: javaaddressbookconfigmap
+          image: docker.io/ektajha/addressbook
           name: addressbookjava
           ports: 
             - 
               containerPort: 8080
-          env:
-          - name: destinations
-              valueFrom: 
-                 configMapKeyRef:
-                    name: javaaddressbookconfigmap
-                    key: url
