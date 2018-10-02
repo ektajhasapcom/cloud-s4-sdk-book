@@ -1,7 +1,7 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
     
      
-    dockerExecute(script: this, dockerImage: 'ektajha/k8shelm:v1'){ 
+     dockerExecute(script: this, dockerImage: 'lachlanevenson/k8s-kubectl'){ 
         withCredentials([[
                 $class: 'FileBinding',
                 credentialsId: 'k8s-credentials',
