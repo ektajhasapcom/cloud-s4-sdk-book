@@ -17,4 +17,4 @@ spec:
     image: gcr.io/kaniko-project/executor:v0.1.0
     args:  #See kaniko docs for more info about the arguments passed
     - --dockerfile=/workspace/Dockerfile
-    - --destination=docker.io/ektajha/addressbook 
+    - --destination=docker.io/ektajha/addressbook:{{.Values.imageversion}
