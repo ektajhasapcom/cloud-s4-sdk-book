@@ -1,7 +1,7 @@
 apiVersion: build.knative.dev/v1alpha1
 kind: Build
 metadata:
-  name: addressbook
+  name: addressbook-${env.BUILD_NUMBER}
   namespace: default
 spec:
   serviceAccountName: knative-build-service-account
