@@ -5,4 +5,4 @@
 replicaCount: 1
 environment: default
 imageversion: v1
-buildVersion: 1
+buildVersion: ${env.BUILD_NUMBER}

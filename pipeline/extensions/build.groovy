@@ -1,6 +1,5 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
     
-     def  tag = "${env.BUILD_NUMBER}"
      def  imageV = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
      
      dockerExecute(script: this, dockerImage: 'ektajha/k8shelm:v1'){ 
@@ -10,7 +9,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                 variable: 'KUBECONFIG'
             ]]){
                  sh "kubectl --kubeconfig=$KUBECONFIG"          
-                 sh "helm upgrade --install --force buildconfiguration --set buildVersion=$tag, imageversion=$imageV buildconfiguration"            
+                 sh "helm upgrade --install --force buildconfiguration --set imageversion=$imageV buildconfiguration"            
               }
     }
 
