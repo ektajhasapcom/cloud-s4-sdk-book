@@ -8,6 +8,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                 variable: 'KUBECONFIG'
             ]]){
                  sh "kubectl --kubeconfig=$KUBECONFIG"
+                 sh "kubectl delete -f build.yaml"
                  sh "kubectl apply -f build.yaml"           
               }
     }
