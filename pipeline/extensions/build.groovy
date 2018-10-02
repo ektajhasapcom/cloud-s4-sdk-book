@@ -1,14 +1,15 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
     
+     def  tag = "${env.BUILD_NUMBER}"
      
-     dockerExecute(script: this, dockerImage: 'lachlanevenson/k8s-kubectl'){ 
+     dockerExecute(script: this, dockerImage: 'ektajha/k8shelm:v1'){ 
         withCredentials([[
                 $class: 'FileBinding',
                 credentialsId: 'k8s-credentials',
                 variable: 'KUBECONFIG'
             ]]){
-                 sh "kubectl --kubeconfig=$KUBECONFIG"
-                 sh "kubectl apply -f build.yaml"           
+                 sh "kubectl --kubeconfig=$KUBECONFIG"          
+                 sh "helm upgrade --install --force buildconfiguration --set buildVersion=$tag buildconfiguration"            
               }
     }
 
