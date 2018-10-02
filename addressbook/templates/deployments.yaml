@@ -24,7 +24,7 @@ spec:
                 configMapKeyRef: 
                   key: url
                   name: javaaddressbookconfigmap
-          image: docker.io/ektajha/addressbook:{{.Values.imageversion}
+          image: docker.io/ektajha/addressbook:{{.Values.imageversion}}
           name: addressbookjava
           ports: 
             - 
