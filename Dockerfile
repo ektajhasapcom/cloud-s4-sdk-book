@@ -16,4 +16,6 @@ RUN set -x \
 
 COPY application/target/address-manager-application.war /usr/local/tomee/webapps/address-manager-application.war
 
+ENV ALLOW_MOCKED_AUTH_HEADER="true"
+
 CMD ["catalina.sh", "run"]
