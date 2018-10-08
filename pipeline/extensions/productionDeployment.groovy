@@ -1,6 +1,8 @@
 def call(Closure originalStage, String stageName, Map stageConfiguration, Map generalConfiguration) {
-    
-     def  imageV = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+     
+     def repositoryName = 'ektajha'
+     def  appName = 'addressbook'
+     def  imageTag = "docker.io/${repositoryName}/${appName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}" 
      
      dockerExecute(script: this, dockerImage: 'ektajha/k8shelm:v1'){ 
         withCredentials([[
@@ -10,9 +12,8 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
             ]]){
                  sh "kubectl --kubeconfig=$KUBECONFIG"
                  sh "kubectl get pods"
-                 sh "helm init --upgrade"
-                 sh "sleep 11"
-                 sh "helm upgrade --install --force addrbook --set imageversion=$imageV addressbook"            
+                 sh "sed -i.bak 's#provideImageName#${imageTag}#' deployment.yaml"
+                 sh "kubectl apply -f deployment.yaml -n production"            
               }
     }
 
