@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: javaaddressbookconfigmap
+  labels:
+     app: addressbook
+     version: "0.0.3"
+data:
+  url: "[{name: 'ErpQueryEndpoint', url: 'http://mockserver:3000', username: 'DUMMY', password: 'dummy'"
