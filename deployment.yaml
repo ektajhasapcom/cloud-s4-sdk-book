@@ -1,30 +1,30 @@
 apiVersion: gateway.kyma.cx/v1alpha2
 kind: Api
 metadata:
-  name: addressbook
+  name: javamaddressbook
   labels:
-     app: addressbook
+     app: javamaddressbook
 spec:
-  hostname: addressbook
+  hostname: javamaddressbook
   service:
-    name: addressbook
+    name: javamaddressbook
     port: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:    
-     app: addressbook
+     app: javamaddressbook
      version: "0.0.3"
   annotations:
      auth.istio.io/80: NONE
-  name: addressbook
+  name: javamaddressbook
 spec:
   ports:
   - name: http
     port: 8080
   selector:
-    app: addressbook
+    app: javamaddressbook
     version: "0.0.3"
   type: NodePort
   
@@ -35,24 +35,24 @@ metadata:
    annotations:
       deployment.kubernetes.io/revision: "3"
    labels:
-      app: addressbook
+      app: javamaddressbook
       mf_version: "1"
-   name: addressbook   
+   name: javamaddressbook   
 spec:
    replicas: 1
    selector:
       matchLabels:
-         app: addressbook
+         app: javamaddressbook
    template:
       metadata:
          labels:    
-            app: addressbook
+            app: javamaddressbook
             version: "0.0.3"
          annotations:
             sidecar.istio.io/inject: "true"
       spec:    
          containers:
-           - name: addressbook
+           - name: javamaddressbook
 # changeme: Replace with pointer to your docker repository/container
              image: provideImageName
              imagePullPolicy: Always              
@@ -64,5 +64,5 @@ spec:
               - name: destinations
                 valueFrom: 
                    configMapKeyRef:
-                      name: javaaddressbookconfigmap
+                      name: javamaddressbookconfigmap
                       key: url 
