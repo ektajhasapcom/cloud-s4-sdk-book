@@ -199,6 +199,6 @@ public class AddressServlet extends HttpServlet {
     	int statusCode = httpResponse.getStatusLine().getStatusCode();
     	System.out.println("Response Status: " + statusCode);
     	response.setContentType("application/json");
-        response.getWriter().write(new Gson().toJson(httpResponse.getEntity().getContent()));
+        response.getWriter().write(new Gson().toJson(httpResponse.toString()));
     }
 }
