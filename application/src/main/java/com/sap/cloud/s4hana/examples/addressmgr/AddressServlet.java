@@ -13,6 +13,15 @@ import com.sap.cloud.sdk.cloudplatform.logging.CloudLoggerFactory;
 import com.sap.cloud.sdk.s4hana.datamodel.odata.namespaces.businesspartner.BusinessPartnerAddress;
 import com.sap.cloud.sdk.s4hana.datamodel.odata.services.BusinessPartnerService;
 import com.sap.cloud.sdk.s4hana.datamodel.odata.services.DefaultBusinessPartnerService;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 
 import javax.servlet.ServletException;
@@ -176,5 +185,20 @@ public class AddressServlet extends HttpServlet {
     private boolean validateIds(String businessPartnerId, String addressId) {
         return (!Strings.isNullOrEmpty(businessPartnerId) && businessPartnerId.length() <= 10) &&
                 (!Strings.isNullOrEmpty(addressId) && addressId.length() <= 10);
+    }
+    
+    @Override
+    protected void doGet(final HttpServletRequest request, final HttpServletResponse response)
+            throws ServletException, IOException {
+    	CredentialsProvider provider = new BasicCredentialsProvider();
+    	UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("I023587", "QtwvpjPqGCiEoRHqHfbsiaP6gngiS+MZdmqZDnfB");
+    	provider.setCredentials(AuthScope.ANY, credentials);
+    	HttpClient client = HttpClientBuilder.create().setDefaultCredentialsProvider(provider).build();
+    	String URL_SECURED_BY_BASIC_AUTHENTICATION = System.getenv("GATEWAY_URL") + "/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartnerAddress";
+    	HttpResponse httpResponse = client.execute(new HttpGet(URL_SECURED_BY_BASIC_AUTHENTICATION));
+    	int statusCode = httpResponse.getStatusLine().getStatusCode();
+    	System.out.println("Response Status: " + statusCode);
+    	response.setContentType("application/json");
+        response.getWriter().write(new Gson().toJson(httpResponse.getEntity().getContent()));
     }
 }
