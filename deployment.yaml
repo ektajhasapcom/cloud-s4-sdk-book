@@ -1,33 +1,32 @@
 apiVersion: gateway.kyma.cx/v1alpha2
 kind: Api
 metadata:
-  name: javamaddressbook
+  name: addressbook
   labels:
-     app: javamaddressbook
+     app: addressbook
 spec:
-  hostname: javamaddressbook
+  hostname: addressbook
   service:
-    name: javamaddressbook
+    name: addressbook
     port: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:    
-     app: javamaddressbook
+     app: addressbook
      version: "0.0.3"
   annotations:
      auth.istio.io/80: NONE
-  name: javamaddressbook
+  name: addressbook
 spec:
   ports:
   - name: http
     port: 8080
   selector:
-    app: javamaddressbook
+    app: addressbook
     version: "0.0.3"
   type: NodePort
-  
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -35,34 +34,32 @@ metadata:
    annotations:
       deployment.kubernetes.io/revision: "3"
    labels:
-      app: javamaddressbook
+      app: addressbook
       mf_version: "1"
-   name: javamaddressbook   
+   name: addressbook  
 spec:
    replicas: 1
    selector:
       matchLabels:
-         app: javamaddressbook
+         app: addressbook
    template:
       metadata:
          labels:    
-            app: javamaddressbook
+            app: addressbook
             version: "0.0.3"
          annotations:
             sidecar.istio.io/inject: "true"
       spec:    
          containers:
-           - name: javamaddressbook
-# changeme: Replace with pointer to your docker repository/container
+           - name: addressbook
              image: provideImageName
              imagePullPolicy: Always              
              ports:
               - containerPort: 8080
                 name: http
-
              env:
-              - name: destinations
-                valueFrom: 
+              - name: VCAP_SERVICES
+                valueFrom:
                    configMapKeyRef:
-                      name: javamaddressbookconfigmap
-                      key: url 
+                      name: cfgmapdestination
+                      key:  configmap_destination.json
