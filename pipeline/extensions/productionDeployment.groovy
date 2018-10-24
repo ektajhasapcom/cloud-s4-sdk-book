@@ -13,7 +13,7 @@ def call(Closure originalStage, String stageName, Map stageConfiguration, Map ge
                  sh "kubectl --kubeconfig=$KUBECONFIG"
                  sh "kubectl get pods"
                  sh "sed -i.bak 's#provideImageName#${imageTag}#' deployment.yaml"
-                 sh "kubectl apply -f deployment.yaml -n qa"            
+                 sh "kubectl apply -f deployment.yaml -n production"            
               }
     }
 
